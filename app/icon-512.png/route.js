@@ -1,0 +1,1 @@
+import{ImageResponse}from"next/og";export const runtime="edge";export async function GET(){return new ImageResponse(<div style={{width:"100%",height:"100%",display:"flex",alignItems:"center",justifyContent:"center",background:"linear-gradient(135deg,#168cff,#49d7df)",borderRadius:"22%",fontFamily:"Arial",fontWeight:900,color:"white",fontSize:282}}>D</div>,{width:512,height:512})}
