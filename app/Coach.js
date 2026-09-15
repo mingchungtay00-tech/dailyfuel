@@ -70,7 +70,7 @@ function Modal({children,onClose}){
     ref.current?.classList.remove("dragging");
     if(dy>110){setDy(0);onClose()}else setDy(0);
   };
-  return <div className="coach-modal-backdrop" onClick={onClose}><div ref={ref} className="coach-modal" style={{transform:`translateY(${dy}px)`}} onClick={e=>e.stopPropagation()}><div className="coach-modal-handle-wrap" onTouchStart={start} onTouchMove={move} onTouchEnd={end}><div className="coach-modal-handle"/></div>{children}</div></div>
+  return <div className="coach-modal-backdrop" onClick={onClose}><div ref={ref} className="coach-modal" style={{transform:`translateY(${dy}px)`}} onClick={e=>e.stopPropagation()}><div className="coach-modal-handle-wrap" onTouchStart={start} onTouchMove={move} onTouchEnd={end}><div className="coach-modal-handle"/></div><div className="coach-modal-body">{children}</div></div></div>
 }
 function Spinner({label}){return <div className="coach-loading"><div className="coach-spinner"/><b>{label}</b><span>•••</span></div>}
 function Stats({c,l}){return <div className="coach-mini-status"><div><span>{l.calories}</span><b>{Math.round(c.remaining.calories)}</b></div><div><span>{l.protein}</span><b>{round(c.remaining.protein)}g</b></div><div><span>{l.carbs}</span><b>{round(c.remaining.carbs)}g</b></div><div><span>{l.fat}</span><b>{round(c.remaining.fat)}g</b></div></div>}
