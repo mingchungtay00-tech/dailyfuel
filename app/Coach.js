@@ -52,25 +52,29 @@ function buildContext(items,date,target,weights){
 }
 function nutrientPriority(c){const pairs=[["Protein",c.targets.protein?c.remaining.protein/c.targets.protein:0],["Carbs",c.targets.carbs?c.remaining.carbs/c.targets.carbs:0],["Fat",c.targets.fat?c.remaining.fat/c.targets.fat:0]];return pairs.sort((a,b)=>b[1]-a[1])[0]?.[0]||"None"}
 function Modal({children,onClose}){
-  const ref=useRef(null),drag=useRef({startY:0,active:false});
+  const ref=useRef(null),drag=useRef({startY:0,active:false,dy:0});
   const[dy,setDy]=useState(0);
   const start=e=>{
     if(ref.current?.scrollTop>0)return;
-    drag.current={startY:e.touches[0].clientY,active:true};
+    drag.current={startY:e.touches[0].clientY,active:true,dy:0};
     ref.current?.classList.add("dragging");
   };
   const move=e=>{
     if(!drag.current.active)return;
     const next=Math.max(0,e.touches[0].clientY-drag.current.startY);
+    drag.current.dy=next;
     setDy(next);
+    if(next>0&&e.cancelable)e.preventDefault();
   };
   const end=()=>{
     if(!drag.current.active)return;
-    drag.current.active=false;
     ref.current?.classList.remove("dragging");
-    if(dy>110){setDy(0);onClose()}else setDy(0);
+    const close=drag.current.dy>110;
+    drag.current={startY:0,active:false,dy:0};
+    setDy(0);
+    if(close)onClose();
   };
-  return <div className="coach-modal-backdrop" onClick={onClose}><div ref={ref} className="coach-modal" style={{transform:`translateY(${dy}px)`}} onClick={e=>e.stopPropagation()}><div className="coach-modal-handle-wrap" onTouchStart={start} onTouchMove={move} onTouchEnd={end}><div className="coach-modal-handle"/></div><div className="coach-modal-body">{children}</div></div></div>
+  return <div className="coach-modal-backdrop" onClick={onClose}><div ref={ref} className="coach-modal" style={{transform:`translateY(${dy}px)`}} onClick={e=>e.stopPropagation()}><div className="coach-modal-handle-wrap" onTouchStart={start} onTouchMove={move} onTouchEnd={end} onTouchCancel={end}><div className="coach-modal-handle"/></div><div className="coach-modal-body">{children}</div></div></div>
 }
 function Spinner({label}){return <div className="coach-loading"><div className="coach-spinner"/><b>{label}</b><span>•••</span></div>}
 function Stats({c,l}){return <div className="coach-mini-status"><div><span>{l.calories}</span><b>{Math.round(c.remaining.calories)}</b></div><div><span>{l.protein}</span><b>{round(c.remaining.protein)}g</b></div><div><span>{l.carbs}</span><b>{round(c.remaining.carbs)}g</b></div><div><span>{l.fat}</span><b>{round(c.remaining.fat)}g</b></div></div>}
