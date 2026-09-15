@@ -152,3 +152,7 @@
 @supports(height:100dvh){
   .coach-modal{max-height:86dvh}
 }
+
+/* iPhone bottom-sheet gesture reliability only */
+.sheet-handle-wrap,.coach-modal-handle-wrap{touch-action:none;-webkit-user-select:none;user-select:none}
+.sheet.dragging,.pin-sheet.dragging,.coach-modal.dragging{transition:none!important}
