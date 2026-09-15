@@ -70,3 +70,32 @@
 .coach-result-metrics small{grid-column:1/-1;color:var(--muted);font-size:11px}
 .coach-notes{margin-top:10px;color:var(--muted);font-size:12px;line-height:1.5}
 @media(max-width:420px){.coach-question{padding:12px}.coach-status-line{gap:6px}.coach-sticky-action{bottom:calc(76px + env(safe-area-inset-bottom))}}
+
+/* iPhone Coach bottom-sheet dismiss + scrolling */
+.coach-modal-backdrop{overscroll-behavior:none}
+.coach-modal{
+  max-height:min(82dvh,82vh);
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+  touch-action:pan-y;
+  transition:transform .22s cubic-bezier(.22,.8,.32,1);
+}
+.coach-modal.dragging{transition:none}
+.coach-modal-handle-wrap{
+  position:sticky;
+  top:0;
+  z-index:3;
+  height:34px;
+  margin:-12px -16px 6px;
+  padding-top:12px;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  background:var(--surface);
+  touch-action:none;
+}
+.coach-modal-handle{margin:0}
+@supports(height:100dvh){
+  .coach-modal{max-height:82dvh}
+}
