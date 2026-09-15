@@ -156,3 +156,11 @@
 /* iPhone bottom-sheet gesture reliability only */
 .sheet-handle-wrap,.coach-modal-handle-wrap{touch-action:none;-webkit-user-select:none;user-select:none}
 .sheet.dragging,.pin-sheet.dragging,.coach-modal.dragging{transition:none!important}
+
+/* UAT: configured macro targets + progress */
+.macro b em{font-style:normal;font-size:11px;font-weight:750;opacity:.78}
+.macro-progress{height:5px;margin-top:7px;border-radius:99px;background:#ffffff55;overflow:hidden}
+.macro-progress i{display:block;height:100%;border-radius:99px;transition:width .25s ease}
+.macro-progress i.normal{background:#138ee7}
+.macro-progress i.warning{background:#f7c948}
+.macro-progress i.danger{background:#ef5350}
